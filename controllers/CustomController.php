@@ -9,7 +9,15 @@
 namespace app\controllers;
 
 
-class CustomController
-{
+use yii\web\Controller;
 
+class CustomController extends Controller
+{
+protected function setMeta($title=Null,$keywords=null,$description=null)
+{
+    $this->view->title=$title;
+    $this->view->registerMetaTag(['name'=>'keywords','content'=>$keywords]);
+    $this->view->registerMetaTag(['name'=>'description','content'=>$description]);
+
+}
 }
