@@ -61,6 +61,7 @@ class SiteController extends CustomController
      */
     public function actionIndex()
     {
+        $this->setMeta('blog.kg','blog','Командная разработка');
         return $this->render('index');
     }
 
