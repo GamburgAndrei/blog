@@ -3,6 +3,8 @@ use yii\helpers\Html;
   use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use yii\bootstrap\Modal;
+
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -54,10 +56,18 @@ AppAsset::register($this);
         <!-- Text -->
         <section class="box text-style1">
             <div class="inner">
-                <p>
-                    <strong>Striped:</strong> A free and fully responsive HTML5 site
-                    template designed by <a href="http://n33.co/">AJ</a> for <a href="http://html5up.net/">HTML5 UP</a>
-                </p>
+<?php
+Modal::begin([
+        'header'=>'<h5> Регистрация</h5>',
+    'toggleButton'=>['label'=>'Регистрация',
+        'class'=>'btn btn-link'
+        ]
+
+]);
+
+echo 'Привет Мир';
+Modal::end();
+?>
             </div>
         </section>
 
