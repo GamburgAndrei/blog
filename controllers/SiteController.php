@@ -10,6 +10,9 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\controllers\CustomController;
+use app\models\User;
+use yii\widgets\ActiveForm;
+
 class SiteController extends CustomController
 {
     /**
@@ -85,6 +88,30 @@ class SiteController extends CustomController
         return $this->render('login', [
             'model' => $model,
         ]);
+    }
+
+    public function actionRegistr(){
+
+        if(!Yii::$app->user->isGuest){
+            return $this->redirect('/');
+        }
+        $model=new User();
+        if(Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())){
+            $this->Password=$model->password;
+            if(!User::find()->where(['email'=>$model->email])->limit(1)->all()){
+                $model->password=Yii::$app->security->generatePasswordHash( $model->password);
+                $model->code=Yii::$app->getSecurity()->generateRandomString(10);
+                $model->active=0;
+                if($model->save()){
+                    return $this->redirect('/');
+                }
+                else{
+                    Yii::$app->response->format=Response::FORMAT_JSON;
+                    return ActiveForm::validate($model);
+                }
+            }
+        }
+        return $this->renderAjax('_form_registr',compact('modole'));
     }
 
     /**
