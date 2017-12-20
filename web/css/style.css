@@ -930,3 +930,9 @@
 	{
 		background: #364050 url('images/bg01.png');
 	}
+
+	.model-content
+	{
+	background-color: #122b40;
+		height: 500px !important;
+	}
